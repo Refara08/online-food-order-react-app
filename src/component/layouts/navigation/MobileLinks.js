@@ -1,0 +1,131 @@
+import { useState, useRef } from "react";
+import { Twirl as Hamburger } from "hamburger-react";
+import gsap from "gsap";
+
+import CartIcon from "../../../img/cart-icon";
+
+const MobileLinks = (props) => {
+  const [isHamburgerActive, setIsHamburgerActive] = useState(false);
+  const mobileNavRef = useRef();
+  const q = gsap.utils.selector(mobileNavRef);
+
+  const togglingHam = () => {
+    !isHamburgerActive
+      ? gsap
+          .timeline()
+          .fromTo(
+            mobileNavRef.current,
+            {
+              yPercent: -25,
+              opacity: 0,
+              scaleY: 0.3,
+              ease: "power4.in",
+            },
+            {
+              yPercent: 10,
+              opacity: 1,
+              scaleY: 1,
+              duration: 0.3,
+            }
+          )
+          .fromTo(
+            q("a"),
+            {
+              yPercent: -20,
+              opacity: 0,
+            },
+            {
+              yPercent: 0,
+              opacity: 1,
+              stagger: 0.1,
+            },
+            "<0.2"
+          )
+      : gsap
+          .timeline()
+          .fromTo(
+            q("a"),
+            {
+              yPercent: 0,
+              opacity: 1,
+            },
+            {
+              yPercent: -20,
+              opacity: 0,
+              stagger: 0.1,
+            }
+          )
+          .fromTo(
+            mobileNavRef.current,
+            {
+              yPercent: 10,
+              opacity: 1,
+              scaleY: 1,
+              ease: "power4.out",
+            },
+            {
+              yPercent: -25,
+              opacity: 0,
+              scaleY: 0.3,
+              duration: 0.3,
+            },
+            "<0.7"
+          );
+  };
+
+  return (
+    <>
+      <div className="block lg:hidden">
+        <Hamburger
+          toggled={isHamburgerActive}
+          toggle={setIsHamburgerActive}
+          size={24}
+          color="#333"
+          easing="ease-out"
+          rounded
+          onToggle={togglingHam}
+        />
+      </div>
+      <div className="cart-mobile">
+        <div className="container mx-auto flex justify-end px-8">
+          <div
+            onClick={props.onOpenCart}
+            className="bg-primary p-2 rounded-lg relative cursor-pointer"
+          >
+            <CartIcon />
+            <span className="absolute -top-3 -right-3 rounded-full w-6 h-6 bg-red-600 text-white text-sm grid place-items-center">
+              3
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        ref={mobileNavRef}
+        className="absolute bottom-0 left-0 translate-y-[90%] opacity-0 w-full aspect-[2/3] bg-black -z-10"
+      >
+        <div className="flex lg:hidden flex-col justify-evenly items-center h-full">
+          <a className="regular-link link-active" href="/">
+            Home
+          </a>
+          <a className="regular-link" href="/">
+            About Us
+          </a>
+          <a className="regular-link" href="/">
+            Menu
+          </a>
+          <a className="regular-link" href="/">
+            Contact
+          </a>
+          <a className="regular-link" href="/">
+            Sign In
+          </a>
+          <a className="regular-link" href="/">
+            Sign Up
+          </a>
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default MobileLinks;
