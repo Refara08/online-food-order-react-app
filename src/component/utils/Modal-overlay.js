@@ -1,6 +1,9 @@
 import * as ReactDOM from "react-dom";
 import Card from "./Card";
 
+import { useRef, useLayoutEffect } from "react";
+import gsap from "gsap";
+
 const Backdrop = (props) => {
   return (
     <div
@@ -11,8 +14,24 @@ const Backdrop = (props) => {
 };
 
 const Overlay = (props) => {
+  const overlayRef = useRef();
+
+  useLayoutEffect(() => {
+    gsap.fromTo(
+      overlayRef.current,
+      {
+        opacity: 0,
+        yPercent: -2,
+      },
+      { opacity: 1, yPercent: 0 }
+    );
+  }, []);
+
   return (
-    <div className="z-40 fixed top-20 lg:top-40 left-1/2 -translate-x-1/2 lg:translate-x-0 lg:left-1/3 w-[80%] lg:w-[600px] h-[1000px] animate-slide-down">
+    <div
+      ref={overlayRef}
+      className="z-40 fixed top-20 lg:top-40 left-1/2 -translate-x-1/2 lg:translate-x-0 lg:left-1/3 w-[80%] lg:w-[600px] h-[1000px]"
+    >
       <Card>{props.children}</Card>
     </div>
   );

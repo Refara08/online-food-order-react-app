@@ -16,13 +16,13 @@ const MobileLinks = (props) => {
           .fromTo(
             mobileNavRef.current,
             {
-              yPercent: -25,
+              yPercent: -35,
               opacity: 0,
               scaleY: 0.3,
               ease: "power4.in",
             },
             {
-              yPercent: 10,
+              yPercent: 0,
               opacity: 1,
               scaleY: 1,
               duration: 0.3,
@@ -58,13 +58,13 @@ const MobileLinks = (props) => {
           .fromTo(
             mobileNavRef.current,
             {
-              yPercent: 10,
+              yPercent: 0,
               opacity: 1,
               scaleY: 1,
               ease: "power4.out",
             },
             {
-              yPercent: -25,
+              yPercent: -35,
               opacity: 0,
               scaleY: 0.3,
               duration: 0.3,
@@ -101,9 +101,9 @@ const MobileLinks = (props) => {
       </div>
       <div
         ref={mobileNavRef}
-        className="absolute bottom-0 left-0 translate-y-[90%] opacity-0 w-full aspect-[2/3] bg-black -z-10"
+        className="block lg:hidden absolute top-16 left-0 opacity-0 w-full aspect-[2/3] md:aspect-square bg-black -z-10 rounded-b-2xl"
       >
-        <div className="flex lg:hidden flex-col justify-evenly items-center h-full">
+        <div className="flex flex-col justify-evenly items-center h-full">
           <a className="regular-link link-active" href="/">
             Home
           </a>

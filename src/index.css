@@ -47,3 +47,11 @@
 .button.main {
   @apply mx-0 rounded-2xl rounded-bl-none rounded-tr-none bg-primary text-black;
 }
+
+.categories button {
+  @apply opacity-75;
+}
+
+.categories button.active {
+  @apply opacity-100 rounded-full font-bold bg-primary w-10 aspect-square;
+}

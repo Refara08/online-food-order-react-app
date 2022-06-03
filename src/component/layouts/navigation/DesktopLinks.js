@@ -1,6 +1,6 @@
 import CartIcon from "../../../img/cart-icon";
 
-const iconLinkStyle = "py-6 mx-5 grid place-items-center";
+const iconLinkStyle = "mx-5 grid place-items-center";
 
 const DesktopLinks = (props) => {
   return (
