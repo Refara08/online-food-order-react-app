@@ -10,6 +10,8 @@ const MealsGroup = (props) => {
           desc={item.desc}
           price={item.price}
           img={item.URL}
+          isBestSeller={item.bestSeller}
+          isRecomended={item.recomended}
         />
       ))}
     </div>
