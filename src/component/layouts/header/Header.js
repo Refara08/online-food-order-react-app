@@ -3,7 +3,7 @@ import RightArrow from "../../../img/right-arrow";
 
 const Header = () => {
   return (
-    <div className="bg-secondary h-auto pt-16 pb-24 lg:pt-28 flex items-center">
+    <div className="bg-secondary h-auto pt-16 lg:pt-28 flex items-center">
       <div className="container mx-auto flex flex-col-reverse lg:flex-row justify-center gap-4">
         <div className="p-2 basis-1/2 flex justify-end items-center">
           <div className="px-8">

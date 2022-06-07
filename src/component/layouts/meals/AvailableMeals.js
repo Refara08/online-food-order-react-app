@@ -1,7 +1,9 @@
+import MealsGroup from "./MealsGroup";
+
 const AvailableMeals = (props) => {
   return (
-    <div className="pt-14 container mx-auto px-6">
-      <div className="title">
+    <div className="container mx-auto">
+      <div className="title px-6">
         <span className="block font-bold text-black mb-2 tracking-widest w-fit">
           Discover
         </span>
@@ -16,6 +18,7 @@ const AvailableMeals = (props) => {
           </div>
         </div>
       </div>
+      <MealsGroup />
     </div>
   );
 };

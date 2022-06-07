@@ -4,6 +4,7 @@ import Cart from "./component/layouts/cart/Cart";
 import Navigation from "./component/layouts/navigation/Navigation";
 import Header from "./component/layouts/header/Header";
 import AvailableMeals from "./component/layouts/meals/AvailableMeals";
+import WavesDown from "./img/waves-down";
 
 function App() {
   const [isCartOpen, setIsCartOpen] = useState(false);
@@ -21,6 +22,7 @@ function App() {
       {isCartOpen && <Cart onCloseCart={closeCartHandler} />}
       <Navigation onOpenCart={openCartHandler} />
       <Header />
+      <WavesDown />
       <AvailableMeals />
       <div className="h-[1500px]">scroller....</div>
     </div>
