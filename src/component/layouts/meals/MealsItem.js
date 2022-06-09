@@ -73,6 +73,7 @@ const MealsItem = (props) => {
               name="amount"
               id="amount"
               min={0}
+              disabled
               value={amount}
             />
             <button
