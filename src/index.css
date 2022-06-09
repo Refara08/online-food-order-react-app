@@ -55,3 +55,13 @@
 .categories button.active {
   @apply opacity-100 rounded-full font-bold bg-primary w-10 aspect-square;
 }
+
+.input-amount::-webkit-outer-spin-button,
+.input-amount::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.input-amount {
+  -moz-appearance: textfield;
+}
