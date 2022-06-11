@@ -6,6 +6,8 @@ const MealsGroup = (props) => {
     <div className="py-8 px-4 lg:px-6 flex flex-col lg:flex-row justify-start flex-wrap items-center gap-4 lg:gap-8">
       {LIST_MENU.map((item) => (
         <MealsItem
+          id={item.id}
+          key={item.id}
           name={item.name}
           desc={item.desc}
           price={item.price}

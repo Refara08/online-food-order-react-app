@@ -1,24 +1,40 @@
-import { useState, useRef, useLayoutEffect } from "react";
+import { useState, useRef, useLayoutEffect, useContext } from "react";
 import gsap from "gsap";
 
+import CartContext from "../../../store/cart-context";
 import BestSellerBadge from "../../utils/BestSellerBadge";
 import RecomendedBadge from "../../utils/RecomendedBadge";
 
 const MealsItem = (props) => {
+  const cartCtx = useContext(CartContext);
+
   const [amount, setAmount] = useState(0);
+  const [prevAmount, setPrevAmount] = useState(0);
 
   const addAmount = () => {
+    setPrevAmount(amount);
     setAmount((prev) => prev + 1);
+    cartCtx.addItem({
+      id: props.id,
+      name: props.name,
+      amount: 1,
+      price: props.price,
+    });
   };
 
   const decreaseAmount = () => {
+    setPrevAmount(amount);
     setAmount((prev) => prev - 1);
+    cartCtx.removeItem(props.id);
   };
 
   const amountBtnRef = useRef();
 
   useLayoutEffect(() => {
-    if (amount < 2) {
+    if (
+      (prevAmount === 1 && amount === 0) ||
+      (prevAmount === 0 && amount === 1)
+    ) {
       gsap.fromTo(
         amountBtnRef.current,
         { opacity: 0, xPercent: -5 },

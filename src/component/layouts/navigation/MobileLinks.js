@@ -1,10 +1,17 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useContext, useLayoutEffect } from "react";
 import { Twirl as Hamburger } from "hamburger-react";
 import gsap from "gsap";
 
 import CartIcon from "../../../img/cart-icon";
+import CartContext from "../../../store/cart-context";
 
 const MobileLinks = (props) => {
+  const cartCtx = useContext(CartContext);
+
+  const cartBadgeNum = cartCtx.items.reduce((currNum, item) => {
+    return currNum + item.amount;
+  }, 0);
+
   const [isHamburgerActive, setIsHamburgerActive] = useState(false);
   const mobileNavRef = useRef();
   const q = gsap.utils.selector(mobileNavRef);
@@ -77,6 +84,22 @@ const MobileLinks = (props) => {
           );
   };
 
+  const [isBadgeActive, setIsBadgeActive] = useState(false);
+
+  useLayoutEffect(() => {
+    if (cartCtx.items.length === 0) {
+      return;
+    }
+
+    setIsBadgeActive(true);
+
+    const timer = setTimeout(() => {
+      setIsBadgeActive(false);
+    }, 300);
+
+    return () => clearTimeout(timer);
+  }, [cartCtx.items]);
+
   return (
     <>
       <div className="block lg:hidden">
@@ -90,19 +113,25 @@ const MobileLinks = (props) => {
           onToggle={togglingHam}
         />
       </div>
-      <div className="cart-mobile">
-        <div className="container mx-auto flex justify-end px-8">
-          <div
-            onClick={props.onOpenCart}
-            className="bg-primary p-2 rounded-lg relative cursor-pointer"
-          >
-            <CartIcon />
-            <span className="absolute -top-3 -right-3 rounded-full w-6 h-6 bg-red-600 text-white text-sm grid place-items-center">
-              3
-            </span>
+      {cartBadgeNum > 0 && (
+        <div className="cart-mobile">
+          <div className="container mx-auto flex justify-end px-8">
+            <div
+              onClick={props.onOpenCart}
+              className="bg-primary p-2 rounded-lg relative cursor-pointer"
+            >
+              <CartIcon />
+              <span
+                className={`absolute -top-3 -right-3 rounded-full w-6 h-6 bg-red-600 text-white text-sm grid place-items-center ${
+                  isBadgeActive ? "animate-bump" : ""
+                }`}
+              >
+                {cartBadgeNum}
+              </span>
+            </div>
           </div>
         </div>
-      </div>
+      )}
       <div
         ref={mobileNavRef}
         className="hidden lg:hidden absolute top-16 left-0 opacity-0 w-full aspect-[2/3] md:aspect-square bg-black rounded-b-2xl"
