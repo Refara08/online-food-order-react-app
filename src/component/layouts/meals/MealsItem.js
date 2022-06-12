@@ -1,48 +1,8 @@
-import { useState, useRef, useLayoutEffect, useContext } from "react";
-import gsap from "gsap";
-
-import CartContext from "../../../store/cart-context";
 import BestSellerBadge from "../../utils/BestSellerBadge";
 import RecomendedBadge from "../../utils/RecomendedBadge";
+import MealsButton from "./MealsButton";
 
 const MealsItem = (props) => {
-  const cartCtx = useContext(CartContext);
-
-  const [amount, setAmount] = useState(0);
-  const [prevAmount, setPrevAmount] = useState(0);
-
-  const addAmount = () => {
-    setPrevAmount(amount);
-    setAmount((prev) => prev + 1);
-    cartCtx.addItem({
-      id: props.id,
-      name: props.name,
-      amount: 1,
-      price: props.price,
-    });
-  };
-
-  const decreaseAmount = () => {
-    setPrevAmount(amount);
-    setAmount((prev) => prev - 1);
-    cartCtx.removeItem(props.id);
-  };
-
-  const amountBtnRef = useRef();
-
-  useLayoutEffect(() => {
-    if (
-      (prevAmount === 1 && amount === 0) ||
-      (prevAmount === 0 && amount === 1)
-    ) {
-      gsap.fromTo(
-        amountBtnRef.current,
-        { opacity: 0, xPercent: -5 },
-        { opacity: 1, xPercent: 0 }
-      );
-    }
-  });
-
   return (
     <div className="w-full lg:w-[300px] lg:h-[500px] p-4 lg:p-0 shadow-md lg:shadow-xl rounded-xl overflow-hidden border-[1px] border-neutral-200 relative">
       <div className="flex flex-row-reverse lg:flex-col justify-start items-start lg:justify-center lg:items-center gap-4">
@@ -65,42 +25,12 @@ const MealsItem = (props) => {
           )}`}</p>
         </div>
       </div>
-      <div className="min-h-[3rem] lg:min-h-[4rem] static lg:absolute lg:bottom-0 flex justify-end items-center lg:flex-col lg:justify-center lg:items-end w-full lg:pb-4 lg:px-4">
-        {amount === 0 && (
-          <button
-            ref={amountBtnRef}
-            onClick={addAmount}
-            className="amount-btn border-2 border-primary py-2 px-6 rounded-full"
-          >
-            Add
-          </button>
-        )}
-        {amount > 0 && (
-          <div ref={amountBtnRef} className="amount-btn">
-            <button
-              onClick={decreaseAmount}
-              className="w-7 h-7 border-2 border-primary rounded-full"
-            >
-              -
-            </button>
-            <input
-              className="input-amount w-[3ch] text-center"
-              type="number"
-              name="amount"
-              id="amount"
-              min={0}
-              disabled
-              value={amount}
-            />
-            <button
-              onClick={addAmount}
-              className="w-7 h-7 border-2 border-primary rounded-full"
-            >
-              +
-            </button>
-          </div>
-        )}
-      </div>
+      <MealsButton
+        mode="REGULAR"
+        id={props.id}
+        name={props.name}
+        price={props.price}
+      />
     </div>
   );
 };
