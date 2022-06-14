@@ -1,5 +1,9 @@
+import { useContext } from "react";
+import CartContext from "../../../store/cart-context";
+
 import ModalOverlay from "../../utils/Modal-overlay";
 import CartItem from "./CartItem";
+import CloseICon from "../../../img/close-icon";
 
 const ORDERED_ITEMS = [
   {
@@ -36,40 +40,69 @@ ORDERED_ITEMS.forEach((item) => {
 });
 
 const Cart = (props) => {
+  const cartCtx = useContext(CartContext);
+
   return (
     <ModalOverlay onCloseCart={props.onCloseCart}>
-      <div className="px-8 pt-8 pb-3">
-        <h2 className="font-bold text-3xl mb-3">Your Order</h2>
-        <p className="text-xs lg:text-base border-b-[1px] border-black pb-3">
-          mohon cek kembali pesanan makanan/minuman beserta jumlah yang dipesan
-          sebelum mengkonfirmasi pesanan
-        </p>
-        <ul className="border-b-[1px] border-black py-3">
-          <li className="grid grid-cols-3 px-3 font-semibold">
-            <span>Jenis pesanan</span>
-            <span className="justify-self-center">Jumlah</span>
-            <span className="justify-self-end">Harga</span>
-          </li>
-        </ul>
-        <ul className="cart-item border-b-[1px] border-black py-3">
-          {ORDERED_ITEMS.map((item) => (
-            <CartItem
-              key={item.id}
-              id={item.id}
-              name={item.name}
-              amount={item.amount}
-              price={item.price}
-            />
-          ))}
-        </ul>
-        <div className="flex justify-between items-center mt-4 px-3 text-lg font-semibold">
-          <h2>Total Harga:</h2>
-          <h2>{`Rp.${totalHarga.toLocaleString("en-US")}`}</h2>
+      <div className="p-4 lg:p-8 h-screen flex flex-col ">
+        <div className="flex-[1] overflow-y-scroll">
+          <div className="flex flex-row-reverse items-center gap-4">
+            <button onClick={props.onCloseCart}>
+              <CloseICon />
+            </button>
+            <div className="flex-[1] grid place-items-center">
+              <h2 className="font-bold">Hungray - Meja 2 Lt.2</h2>
+            </div>
+          </div>
+
+          <div className="pt-8 ">
+            <h2 className="font-bold text-lg">Pesanan untuk</h2>
+            <form>
+              <div className="order-sum-input-group">
+                <label htmlFor="nama">Atas Nama</label>
+                <input type="text" name="nama" id="nama" />
+              </div>
+              <div className="order-sum-input-group">
+                <label htmlFor="noHp">no. Handphone</label>
+                <input type="number" name="noHp" id="noHp" />
+              </div>
+            </form>
+          </div>
+
+          <div className="pt-8">
+            <h2 className="font-bold text-lg">Order Summary</h2>
+            {cartCtx.items.map((item) => (
+              <CartItem
+                key={item.id}
+                id={item.id}
+                name={item.name}
+                price={item.price}
+                amount={item.amount}
+              />
+            ))}
+          </div>
+
+          {/* <div className="py-4">
+            <h2 className="">Choose Payment methode</h2>
+            <ul>
+              <li>OVO</li>
+              <li>Gopay</li>
+              <li>QRIS</li>
+              <li>m-Banking</li>
+              <li>Cash</li>
+            </ul>
+          </div> */}
         </div>
-        <div className="flex justify-center lg:justify-end items-center mt-4">
-          <button className="button green">Order</button>
-          <button onClick={props.onCloseCart} className="button red">
-            Close
+
+        <div className="flex flex-col gap-4  border-t-[1px] border-neutral-300 py-4">
+          <div className="flex justify-between items-center">
+            <h3>Total</h3>
+            <h2 className="font-semibold text-xl">{`Rp.${cartCtx.totalAmount.toLocaleString(
+              "en-US"
+            )}`}</h2>
+          </div>
+          <button className="bg-primary w-full rounded-lg py-2 font-bold text-lg tracking-wide">
+            Place Order
           </button>
         </div>
       </div>

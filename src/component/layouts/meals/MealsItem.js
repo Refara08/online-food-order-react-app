@@ -1,8 +1,22 @@
+import { useContext } from "react";
+
+import CartContext from "../../../store/cart-context";
 import BestSellerBadge from "../../utils/BestSellerBadge";
 import RecomendedBadge from "../../utils/RecomendedBadge";
 import MealsButton from "./MealsButton";
 
 const MealsItem = (props) => {
+  const cartCtx = useContext(CartContext);
+
+  const item = cartCtx.items.find((item) => item.id === props.id);
+
+  let itemAmount;
+  if (item === undefined) {
+    itemAmount = 0;
+  } else {
+    itemAmount = item.amount;
+  }
+
   return (
     <div className="w-full lg:w-[300px] lg:h-[500px] p-4 lg:p-0 shadow-md lg:shadow-xl rounded-xl overflow-hidden border-[1px] border-neutral-200 relative">
       <div className="flex flex-row-reverse lg:flex-col justify-start items-start lg:justify-center lg:items-center gap-4">
@@ -30,6 +44,7 @@ const MealsItem = (props) => {
         id={props.id}
         name={props.name}
         price={props.price}
+        amount={itemAmount}
       />
     </div>
   );

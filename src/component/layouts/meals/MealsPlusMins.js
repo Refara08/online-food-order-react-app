@@ -2,7 +2,7 @@ import React from "react";
 
 const MealsPlusMins = React.forwardRef((props, ref) => {
   return (
-    <div ref={ref} className="amount-btn">
+    <div ref={ref} className={`amount-btn flex gap-1 ${props.orientation}`}>
       <button
         onClick={props.onRemove}
         className="w-7 h-7 border-2 border-primary rounded-full"
@@ -10,7 +10,7 @@ const MealsPlusMins = React.forwardRef((props, ref) => {
         -
       </button>
       <input
-        className="input-amount w-[3ch] text-center"
+        className="input-amount w-[3ch] text-center bg-transparent"
         type="number"
         name="amount"
         id="amount"

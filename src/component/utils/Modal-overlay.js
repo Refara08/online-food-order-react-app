@@ -21,7 +21,7 @@ const Overlay = (props) => {
       overlayRef.current,
       {
         opacity: 0,
-        yPercent: -2,
+        yPercent: 1,
       },
       { opacity: 1, yPercent: 0 }
     );
@@ -30,7 +30,7 @@ const Overlay = (props) => {
   return (
     <div
       ref={overlayRef}
-      className="z-40 fixed top-20 lg:top-40 left-1/2 -translate-x-1/2 lg:translate-x-0 lg:left-1/3 w-[80%] lg:w-[600px] h-[1000px]"
+      className="z-40 fixed top-0 left-0 transform-none w-full max-h-screen lg:top-40 lg:left-1/3 lg:w-[600px] "
     >
       <Card>{props.children}</Card>
     </div>

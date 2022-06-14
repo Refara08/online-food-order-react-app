@@ -65,3 +65,11 @@
 .input-amount {
   -moz-appearance: textfield;
 }
+
+.order-sum-input-group {
+  @apply text-sm flex justify-between my-3;
+}
+
+.order-sum-input-group input {
+  @apply border-[1px] border-neutral-300 rounded-md w-[65%];
+}

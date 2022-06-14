@@ -7,12 +7,12 @@ import MealsPlusMins from "./MealsPlusMins";
 const MealsButton = (props) => {
   const cartCtx = useContext(CartContext);
 
-  const [amount, setAmount] = useState(0);
+  const itemAmount = props.amount;
+
   const [prevAmount, setPrevAmount] = useState(0);
 
   const addAmount = () => {
-    setPrevAmount(amount);
-    setAmount((prev) => prev + 1);
+    setPrevAmount(itemAmount);
     cartCtx.addItem({
       id: props.id,
       name: props.name,
@@ -25,9 +25,8 @@ const MealsButton = (props) => {
   };
 
   const decreaseAmount = () => {
-    setPrevAmount(amount);
-    setAmount((prev) => prev - 1);
     cartCtx.removeItem(props.id);
+    setPrevAmount(itemAmount);
     setTimeout(() => {
       setPrevAmount(-1);
     }, 1000);
@@ -37,8 +36,8 @@ const MealsButton = (props) => {
 
   useLayoutEffect(() => {
     if (
-      (prevAmount === 1 && amount === 0) ||
-      (prevAmount === 0 && amount === 1)
+      (prevAmount === 1 && itemAmount === 0) ||
+      (prevAmount === 0 && itemAmount === 1)
     ) {
       gsap.fromTo(
         amountBtnRef.current,
@@ -51,8 +50,8 @@ const MealsButton = (props) => {
   //mode: "REGULAR", "NUM_ONLY"
 
   return (
-    <div className="min-h-[3rem] lg:min-h-[4rem] static lg:absolute lg:bottom-0 flex justify-end items-center lg:flex-col lg:justify-center lg:items-end w-full lg:pb-4 lg:px-4">
-      {amount === 0 && props.mode === "REGULAR" && (
+    <div className="min-h-[3rem] lg:min-h-[4rem] flex justify-end items-center lg:flex-col lg:justify-center lg:items-end w-full lg:px-4">
+      {itemAmount === 0 && props.mode === "REGULAR" && (
         <button
           ref={amountBtnRef}
           onClick={addAmount}
@@ -61,13 +60,14 @@ const MealsButton = (props) => {
           Add
         </button>
       )}
-      {((props.mode === "REGULAR" && amount > 0) ||
+      {((props.mode === "REGULAR" && itemAmount > 0) ||
         props.mode === "NUM_ONLY") && (
         <MealsPlusMins
+          orientation={props.orientation}
           ref={amountBtnRef}
           onRemove={decreaseAmount}
           onAdd={addAmount}
-          value={amount}
+          value={itemAmount}
         />
       )}
     </div>
