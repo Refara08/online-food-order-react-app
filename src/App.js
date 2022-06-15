@@ -5,6 +5,7 @@ import Navigation from "./component/layouts/navigation/Navigation";
 import Header from "./component/layouts/header/Header";
 import AvailableMeals from "./component/layouts/meals/AvailableMeals";
 import WavesDown from "./img/waves-down";
+import Footer from "./component/layouts/footer/Footer";
 
 function App() {
   const [isCartOpen, setIsCartOpen] = useState(false);
@@ -24,7 +25,7 @@ function App() {
       <Header />
       <WavesDown />
       <AvailableMeals />
-      <div className="h-[1500px]">scroller....</div>
+      <Footer />
     </div>
   );
 }

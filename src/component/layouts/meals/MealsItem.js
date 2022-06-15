@@ -18,8 +18,8 @@ const MealsItem = (props) => {
   }
 
   return (
-    <div className="w-full lg:w-[300px] lg:h-[500px] p-4 lg:p-0 shadow-md lg:shadow-xl rounded-xl overflow-hidden border-[1px] border-neutral-200 relative">
-      <div className="flex flex-row-reverse lg:flex-col justify-start items-start lg:justify-center lg:items-center gap-4">
+    <div className="w-full lg:w-[23%] lg:h-[500px] p-4 lg:p-0 shadow-md lg:shadow-xl rounded-xl overflow-hidden border-[1px] border-neutral-200 relative">
+      <div className="flex flex-row-reverse lg:flex-col justify-start items-start lg:justify-center lg:items-center gap-4 h-[125px] lg:h-auto">
         <div className="w-[175px] lg:w-auto lg:h-[250px] rounded-xl lg:rounded-none overflow-hidden">
           <img
             src={props.img}

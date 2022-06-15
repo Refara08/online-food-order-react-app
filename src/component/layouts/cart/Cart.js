@@ -42,35 +42,35 @@ ORDERED_ITEMS.forEach((item) => {
 const Cart = (props) => {
   const cartCtx = useContext(CartContext);
 
-  return (
-    <ModalOverlay onCloseCart={props.onCloseCart}>
-      <div className="p-4 lg:p-8 h-screen flex flex-col ">
-        <div className="flex-[1] overflow-y-scroll">
-          <div className="flex flex-row-reverse items-center gap-4">
-            <button onClick={props.onCloseCart}>
-              <CloseICon />
-            </button>
-            <div className="flex-[1] grid place-items-center">
-              <h2 className="font-bold">Hungray - Meja 2 Lt.2</h2>
+  const cartLayout = (
+    <div className="p-4 lg:p-8 h-screen lg:h-[700px] flex flex-col ">
+      <div className="flex-[1]">
+        <div className="flex flex-row-reverse items-center gap-4">
+          <button onClick={props.onCloseCart}>
+            <CloseICon />
+          </button>
+          <div className="flex-[1] grid place-items-center">
+            <h2 className="font-bold">Hungray - Meja 2 Lt.2</h2>
+          </div>
+        </div>
+
+        <div className="pt-8 ">
+          <h2 className="font-bold text-lg">Pesanan untuk</h2>
+          <form>
+            <div className="order-sum-input-group">
+              <label htmlFor="nama">Atas Nama</label>
+              <input type="text" name="nama" id="nama" />
             </div>
-          </div>
+            <div className="order-sum-input-group">
+              <label htmlFor="noHp">no. Handphone</label>
+              <input type="number" name="noHp" id="noHp" />
+            </div>
+          </form>
+        </div>
 
-          <div className="pt-8 ">
-            <h2 className="font-bold text-lg">Pesanan untuk</h2>
-            <form>
-              <div className="order-sum-input-group">
-                <label htmlFor="nama">Atas Nama</label>
-                <input type="text" name="nama" id="nama" />
-              </div>
-              <div className="order-sum-input-group">
-                <label htmlFor="noHp">no. Handphone</label>
-                <input type="number" name="noHp" id="noHp" />
-              </div>
-            </form>
-          </div>
-
-          <div className="pt-8">
-            <h2 className="font-bold text-lg">Order Summary</h2>
+        <div className="pt-8">
+          <h2 className="font-bold text-lg">Order Summary</h2>
+          <ul className="h-[400px] lg:h-[300px] overflow-y-scroll">
             {cartCtx.items.map((item) => (
               <CartItem
                 key={item.id}
@@ -80,32 +80,44 @@ const Cart = (props) => {
                 amount={item.amount}
               />
             ))}
-          </div>
-
-          {/* <div className="py-4">
-            <h2 className="">Choose Payment methode</h2>
-            <ul>
-              <li>OVO</li>
-              <li>Gopay</li>
-              <li>QRIS</li>
-              <li>m-Banking</li>
-              <li>Cash</li>
-            </ul>
-          </div> */}
+          </ul>
         </div>
 
-        <div className="flex flex-col gap-4  border-t-[1px] border-neutral-300 py-4">
-          <div className="flex justify-between items-center">
-            <h3>Total</h3>
-            <h2 className="font-semibold text-xl">{`Rp.${cartCtx.totalAmount.toLocaleString(
-              "en-US"
-            )}`}</h2>
-          </div>
-          <button className="bg-primary w-full rounded-lg py-2 font-bold text-lg tracking-wide">
-            Place Order
-          </button>
-        </div>
+        {/* <div className="py-4">
+          <h2 className="">Choose Payment methode</h2>
+          <ul>
+            <li>OVO</li>
+            <li>Gopay</li>
+            <li>QRIS</li>
+            <li>m-Banking</li>
+            <li>Cash</li>
+          </ul>
+        </div> */}
       </div>
+
+      <div className="flex flex-col gap-4  border-t-[1px] border-neutral-300 py-4">
+        <div className="flex justify-between items-center">
+          <h3>Total</h3>
+          <h2 className="font-semibold text-xl">{`Rp.${cartCtx.totalAmount.toLocaleString(
+            "en-US"
+          )}`}</h2>
+        </div>
+        <button className="bg-primary w-full rounded-lg py-2 font-bold text-lg tracking-wide">
+          Place Order
+        </button>
+      </div>
+    </div>
+  );
+
+  return (
+    <ModalOverlay onCloseCart={props.onCloseCart}>
+      {cartCtx.items.length === 0 ? (
+        <div className="p-4">
+          <h2>You haven't added anything yet</h2>
+        </div>
+      ) : (
+        cartLayout
+      )}
     </ModalOverlay>
   );
 };
